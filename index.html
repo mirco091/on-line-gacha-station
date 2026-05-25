@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VaultX Oripa Marketplace</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app-bg"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">VX</div>
+      <div><b>VaultX</b><span>Community Oripa Platform</span></div>
+    </div>
+    <button class="wallet" id="walletBtn">ウォレット接続</button>
+  </header>
+
+  <main class="shell">
+    <section class="hero glass">
+      <div class="hero-copy">
+        <div class="pill">Solana / USDC / ポイント対応</div>
+        <h1>誰でも出品できる<br>マーケットプレイス型オリパ</h1>
+        <p>ユーザーは「ガチャで購入」または「自分でBOXを出品」。売上が発生すると出品者に販売額の <strong>5%</strong> が還元されます。</p>
+        <div class="hero-actions">
+          <button class="primary" data-tab="gacha">ガチャを引く</button>
+          <button class="secondary" data-tab="sell">出品する</button>
+        </div>
+      </div>
+      <div class="phone-preview">
+        <div class="phone-screen">
+          <div class="live-strip"><span></span>LIVE OPENING</div>
+          <div class="featured-box">
+            <div class="cube"></div>
+            <b>Premium Card Vault #018</b>
+            <small>1回 1,000 pt / 残り 214口</small>
+          </div>
+          <div class="mini-grid">
+            <div>342人が参加中</div><div>出品者還元 5%</div><div>発送対応</div><div>ポイント還元</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs glass">
+      <button class="tab active" data-tab="home">ホーム</button>
+      <button class="tab" data-tab="gacha">ガチャ購入</button>
+      <button class="tab" data-tab="sell">出品</button>
+      <button class="tab" data-tab="inventory">獲得品</button>
+      <button class="tab" data-tab="admin">管理</button>
+    </nav>
+
+    <section id="home" class="panel active">
+      <div class="section-head"><h2>注目BOX</h2><span>ユーザー出品・公式審査済み</span></div>
+      <div class="box-grid" id="boxGrid"></div>
+      <div class="split">
+        <div class="glass card tall"><h3>収益モデル</h3><div class="fee-flow"><div>ユーザー購入<br><b>1,000pt</b></div><span>→</span><div>出品者還元<br><b>50pt</b></div><span>→</span><div>運営手数料<br><b>5%</b></div></div><p>販売額の5%を出品者還元として自動表示。将来的にはオンチェーン決済・自動精算に拡張可能。</p></div>
+        <div class="glass card tall"><h3>リアルタイム履歴</h3><div id="activity" class="activity"></div></div>
+      </div>
+    </section>
+
+    <section id="gacha" class="panel">
+      <div class="section-head"><h2>ガチャ購入</h2><span>入金 → ガチャ → 入手 → 発送 or ポイント還元</span></div>
+      <div class="flow glass">
+        <div class="step done">1 入金</div><div class="step active">2 ガチャ</div><div class="step">3 入手</div><div class="step">4 発送/還元</div>
+      </div>
+      <div class="play-area glass">
+        <div class="machine"><div class="orb" id="orb"></div><button class="primary big" id="drawBtn">1,000ptで引く</button><p id="drawStatus">残高 12,500pt / USDC入金デモ対応</p></div>
+        <div class="result-card" id="resultCard"><h3>排出結果</h3><p>ガチャを引くとここに獲得品が表示されます。</p></div>
+      </div>
+    </section>
+
+    <section id="sell" class="panel">
+      <div class="section-head"><h2>Seller Studio</h2><span>誰でもBOXを出品可能</span></div>
+      <div class="seller glass">
+        <div class="form">
+          <label>BOX名<input id="boxName" value="Community Premium Vault" /></label>
+          <label>1回あたり価格<input id="boxPrice" type="number" value="1000" /></label>
+          <label>総口数<input id="boxLots" type="number" value="300" /></label>
+          <label>目玉景品<textarea id="boxPrize">PSA10カード, 人気BOX, 限定NFT, ポイント還元</textarea></label>
+          <button class="primary" id="calcBtn">収益を計算</button>
+        </div>
+        <div class="seller-preview">
+          <h3>出品シミュレーション</h3>
+          <div class="metric"><span>想定売上</span><b id="sales">300,000pt</b></div>
+          <div class="metric glow"><span>出品者還元 5%</span><b id="sellerFee">15,000pt</b></div>
+          <div class="metric"><span>審査ステータス</span><b>審査待ち</b></div>
+          <button class="secondary" id="publishBtn">審査申請デモ</button>
+          <p id="publishStatus">景品画像・在庫証明・発送方法を登録後、公開できます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="inventory" class="panel">
+      <div class="section-head"><h2>獲得品</h2><span>発送またはポイント還元を選択</span></div>
+      <div class="inventory glass" id="inventoryList"></div>
+    </section>
+
+    <section id="admin" class="panel">
+      <div class="section-head"><h2>運営管理ダッシュボード</h2><span>MVPで再現できる管理機能</span></div>
+      <div class="admin-grid">
+        <div class="glass card"><h3>審査キュー</h3><p>出品BOX 12件 / 本人確認 4件 / 景品確認 8件</p></div>
+        <div class="glass card"><h3>発送管理</h3><p>発送待ち 27件 / 還元処理 91件</p></div>
+        <div class="glass card"><h3>Proof</h3><p>抽選ハッシュ・排出履歴・在庫消化ログを表示</p></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="bottom-nav glass">
+    <button data-tab="home">ホーム</button><button data-tab="sell">出品</button><button class="center" data-tab="gacha">ガチャ</button><button data-tab="inventory">獲得品</button><button data-tab="admin">管理</button>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
